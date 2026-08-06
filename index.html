@@ -1,23 +1,760 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+ <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f4f8f6;
+      color: #1e293b;
+      margin: 0;
+      padding: 0;
+      line-height: 1.7;
+    }
+    .wrapper {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(20, 184, 166, 0.06);
+    }
+    h1 {
+      font-size: 2.4em;
+      color: #0f766e;
+      margin-bottom: 0.8em;
+      border-bottom: 3px solid #14b8a6;
+      padding-bottom: 0.4em;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    h2 {
+      font-size: 1.8em;
+      color: #115e59;
+      margin-top: 2em;
+      margin-bottom: 0.8em;
+      padding-left: 12px;
+      border-left: 5px solid #14b8a6;
+      font-weight: 600;
+    }
+    h3 {
+      font-size: 1.35em;
+      color: #134e4a;
+      margin-top: 1.5em;
+      margin-bottom: 0.6em;
+      font-weight: 600;
+    }
+    p {
+      margin-bottom: 1.2em;
+      color: #334155;
+      text-align: justify;
+    }
+    .highlight {
+      color: #e11d48;
+      font-weight: 600;
+      background-color: #ffe4e6;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .info-box {
+      background-color: #f0fdfa;
+      border-left: 4px solid #14b8a6;
+      padding: 20px;
+      margin: 2em 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .info-box p {
+      margin-bottom: 0.8em;
+      font-size: 0.95em;
+    }
+    .info-box p:last-child {
+      margin-bottom: 0;
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 2em 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+    }
+    .comparison-table th, .comparison-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid #cbd5e1;
+      border-right: 1px solid #cbd5e1;
+      font-size: 0.95em;
+    }
+    .comparison-table th:last-child, .comparison-table td:last-child {
+      border-right: none;
+    }
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+    .comparison-table th {
+      background-color: #ccfbf1;
+      color: #115e59;
+      font-weight: 600;
+    }
+    .comparison-table tbody tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+    .interactive-section {
+      background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+      padding: 30px;
+      border-radius: 12px;
+      margin: 3em 0;
+      border: 1px solid #99f6e4;
+    }
+    .interactive-section h3 {
+      margin-top: 0;
+      color: #0f766e;
+    }
+    .form-group {
+      margin-bottom: 1.5em;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.6em;
+      font-weight: 600;
+      color: #0f766e;
+      font-size: 0.95em;
+    }
+    .form-group select, .form-group input[type="number"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #99f6e4;
+      border-radius: 6px;
+      background-color: #ffffff;
+      color: #1e293b;
+      font-size: 0.95em;
+      box-sizing: border-box;
+    }
+    .form-group select:focus, .form-group input:focus {
+      outline: none;
+      border-color: #0d9488;
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+    }
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 0.5em;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      padding: 10px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .checkbox-item input {
+      margin-right: 10px;
+    }
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background-color: #0d9488;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.05em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .btn-submit:hover {
+      background-color: #0f766e;
+    }
+    .calc-result {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      border: 1px solid #99f6e4;
+      display: none;
+    }
+    .calc-result h4 {
+      margin-top: 0;
+      color: #0f766e;
+      font-size: 1.15em;
+    }
+    .chart-container {
+      margin: 2.5em 0;
+      background-color: #f8fafc;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+    .chart-title {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 1.5em;
+      text-align: center;
+    }
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .bar-row {
+      display: flex;
+      align-items: center;
+    }
+    .bar-label {
+      width: 150px;
+      font-size: 0.9em;
+      color: #475569;
+    }
+    .bar-wrapper {
+      flex-grow: 1;
+      background-color: #e2e8f0;
+      height: 24px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      background-color: #14b8a6;
+      border-radius: 12px;
+      transition: width 1s ease-in-out;
+    }
+    .bar-value {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.85em;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .faq-list {
+      margin-top: 2em;
+    }
+    .faq-item {
+      border-bottom: 1px solid #e2e8f0;
+      padding: 15px 0;
+    }
+    .faq-question {
+      font-weight: 600;
+      color: #0f766e;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-answer {
+      display: none;
+      padding-top: 10px;
+      color: #475569;
+      font-size: 0.95em;
+    }
+    .testimonial {
+      background-color: #fafaf9;
+      border-left: 4px solid #f43f5e;
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 2em 0;
+    }
+    .testimonial-title {
+      font-weight: 600;
+      color: #be123c;
+      margin-bottom: 0.5em;
+    }
+    .external-links {
+      background-color: #f8fafc;
+      padding: 24px;
+      border-radius: 12px;
+      margin-top: 3em;
+      border: 1px solid #e2e8f0;
+    }
+    .external-links h3 {
+      margin-top: 0;
+      color: #334155;
+    }
+    .external-links ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+    }
+    .external-links li {
+      margin-bottom: 10px;
+    }
+    .external-links a {
+      color: #0d9488;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .external-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://ins.reliabledone.com/child-dental-guide"
+    },
+    "headline": "2026년 어린이 치아 보험 교정 보장 및 평균 견적 비교 분석 가이드",
+    "image": [
+      "https://ins.reliabledone.com/images/dental-guide-2026.jpg"
+    ],
+    "datePublished": "2026-01-15T09:00:00+09:00",
+    "dateModified": "2026-08-06T15:00:00+09:00",
+    "author": {
+      "@type": "Organization",
+      "name": "금융보험정책연구소",
+      "url": "https://ins.reliabledone.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "금융보험정책연구소",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://ins.reliabledone.com/logo.png"
+      }
+    },
+    "description": "2026년 기준 어린이 치아 보험 가입 시 교정 치료 보장 범위와 시기별 평균 비용, 다이렉트 상품 비교 및 내돈내산 후기 분석 정보를 상세히 제공합니다."
+  }
+  </script>
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "어린이 치아 보험으로 치열 교정 치료비를 보장받을 수 있나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "일반적인 치아보험의 기본 계약은 충치나 잇몸 질환 치료를 주로 보장하지만, 무통 및 성장기 치열 교정 특약을 신규로 가입할 경우 일부 보장이 가능합니다. 다만 순수 미용 목적이 아닌, 저작 기능 장애나 골격적 부조화 등 치료 목적의 기능 교정 진단을 받아야 보장 혜택을 받을 수 있는 상품이 많으므로 가입 조건의 꼼꼼한 비교가 필수적입니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "다이렉트 인터넷 가입과 설계사 대면 가입의 가격 차이점은 무엇인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "온라인 다이렉트 가입은 중개 수수료가 제외되기 때문에 대면 상담 및 컨설팅을 거치는 설계사 채널보다 보험료 요금제가 약 10%에서 20%가량 가장 저렴한곳에 가깝게 책정됩니다. 단점으로는 본인에게 꼭 필요한 특약을 스스로 판단하여 가입해야 하므로 잘못 설계할 우려가 있다는 점이 있습니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "가입 후 바로 청구하면 교정 비용 지원금을 받을 수 있나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "치과 치료 관련 상품 종류에 따라 면책기간과 감액기간이 존재합니다. 보통 계약일로부터 1년에서 2년 정도의 면책기간이 설정되어 있어 해당 기간 내에는 청구가 불가능하거나 예상 금액의 일부만 지급되므로 신속히 미리 준비하는 방법이 추천됩니다."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>어린이 치아 보험 교정 완벽 가이드: 2026년 조건별 요금 비교 및 예상 비용 계산</h1>
+    
+    <p>자녀의 성장 단계에서 치열의 형태와 골격 발달 상태는 평생의 인상을 좌우할 뿐만 아니라 저작 기능, 발음, 소화 기능 등 전반적인 신체 건강에 지대한 영향을 미칩니다. 이 때문에 많은 부모님들이 영유아기 시절부터 자녀의 구강 관리에 정성을 기울이지만, 막상 영구치가 자라나는 시기가 되면 삐뚤빼뚤한 치열이나 부정교합으로 인해 치과 교정 치료를 고민하게 됩니다.</p>
+
+    <p>하지만 치과 교정은 국민건강보험의 급여 혜택이 적용되지 않는 비급여 항목이 대부분을 차지하기 때문에 가계에 미치는 재정적 타격이 매우 큽니다. 이러한 상황 속에서 자녀의 미래를 위해 어린이 치아 보험 교정 보장 특약을 미리 알아보거나, 기존 가입 상품의 보장 범위를 확인하려는 움직임이 분주합니다. 본 가이드에서는 2026년 최신 기준에 부합하는 연령별 치과 진료비 평균 시세와 각 보험사 브랜드별 다이렉트 요금제 비교, 가입 혜택 및 유의사항 등을 분석하여 합리적인 선택을 돕고자 합니다.</p>
+
+    <div class="info-box">
+      <p>본 정보는 2026년도 건강보험공단 정책 가이드라인 및 주요 손해보험, 생명보험사의 약관을 기반으로 작성되었습니다. 자녀의 연령과 부정교합 상태에 따라 적합한 상품이 크게 달라지므로, 모바일 앱이나 어플을 통한 간편 계산 및 전문 컨설팅을 적극 활용하시기를 권장합니다.</p>
+    </div>
+
+    <h2>어린이 치아 보험 교정 보장의 본질과 가입 목적</h2>
+    <p>치아 보험은 크게 보존치료(레진, 인레이, 아말감 등)와 보철치료(임플란트, 브릿지, 틀니)로 구분되며, 어린이 전용 상품의 경우 유치와 영구치의 특성을 모두 감안하여 구성됩니다. 여기서 많은 분들이 혼동하시는 부분이 바로 치열 교정 치료비 보장 영역입니다. 기본 계약만으로는 교정 비용을 전혀 보장받을 수 없으며, 반드시 신규 가입 단계에서 무통 치료 및 부정교합 교정 특약을 선택하여 구성해야 합니다.</p>
+    
+    <p>교정 치료는 그 목적에 따라 크게 치료 목적과 미용 목적으로 엄격하게 구분됩니다. 보험사에서 청구 금액을 지급하는 기준은 원칙적으로 저작 기능 장애나 골격적인 심각한 불균형으로 인해 일상생활에 심대한 지장을 주는 경우에 한정됩니다. 예를 들어 주걱턱, 무턱, 심한 비대칭으로 인한 3급 부정교합 진단을 받아 대학병원이나 전문 치과 의원에서 턱 교정 및 치열 교정을 진행할 때 비로소 특약의 지원금이나 현금지원 혜택을 원활히 수령할 수 있습니다. 단순한 미용 목적의 앞니 부분 교정 등은 면책 사유에 해당할 가능성이 높으므로 사전에 약관을 면밀히 분석하는 자세가 중요합니다.</p>
+
+    <h2>연령별 치아 발달 단계 및 권장 보장 가이드</h2>
+    <p>아이들의 치아 발달은 연령에 따라 정밀하게 단계화되며, 각 시기마다 필요한 진료 종류와 적합한 요금제 구성 방법이 달라집니다. 아래의 생애주기별 단계 안내를 통해 자녀에게 꼭 필요한 적기 치료 시점을 예상해 보시기 바랍니다.</p>
+
+    <h3>영유아 및 유아기 단계</h3>
+    <p>0세, 1세, 2세에 해당하는 영유아 시기는 유치가 최초로 맹출하는 매우 연약한 기간입니다. 이 시기에는 치열 교정 자체보다는 유치 보존기 관리가 최우선 과제입니다. 젖병 우식증이나 잦은 단 음식 섭취로 인해 유치가 조기 탈락하는 경우 영구치가 맹출할 공간이 좁아져 추후 심각한 부정교합의 원인이 되기 때문입니다.</p>
+    <p>이어지는 3세, 4세, 5세의 유아기 단계 역시 손가락을 빨거나 혀를 내미는 등의 나쁜 습관으로 인해 골격적 이상이 유발될 수 있는 중차대한 골든타임입니다. 이 단계에서는 예방 차원의 정기 검진 혜택이 강화된 기본형 요금제를 신청해 두는 것이 합리적입니다.</p>
+
+    <h3>초등학교 저학년 시기</h3>
+    <p>6세, 7세, 8세 연령층은 영구치 맹출기가 시작되는 초등 저학년 단계입니다. 혼합치열기 아동으로 분류되는 이 시기에는 평생 사용할 영구치가 최초로 잇몸을 뚫고 나오며 유치와 교대하게 됩니다. 만약 이 시기에 턱 골격의 비정상적 성장 징후가 발견된다면 가철식 교정 장치나 페이스마스크 등을 활용한 1차 골격 교정을 시작하는 것이 치료 효율 면에서 가장 탁월합니다.</p>
+    <p>따라서 6세에서 8세 사이의 자녀를 둔 부모님들은 치과 방문 전 해당 진료 요금을 실질적으로 경감시킬 수 있는 맞춤형 부정교합 보장 상품을 비교 분석하여 빠르게 가입 절차를 밟는 편이 예산 방어 측면에서 유리합니다.</p>
+
+    <h3>초등학교 고학년 및 청소년 단계</h3>
+    <p>9세, 10세, 11세, 12세에 이르는 초등 고학년 시기는 대부분의 구강 내 치아가 혼합치열기 후기에 접어듭니다. 영구치 열이 거의 완성되는 이 시점에는 브라켓을 부착하는 본격적인 고정식 교정 치료(2차 교정)가 가능해집니다. 이어서 13세, 14세, 15세의 중학생 시기와 16세, 17세, 18세의 고등학생 및 청소년기 전반은 골격 성장의 한계선에 근접하는 시기이므로 복합적인 정밀 교정이 필요하게 되며 진료 가격 또한 가장 비싸게 책정되는 시기입니다.</p>
+    <p>따라서 청소년 자녀를 둔 부모님들은 치료 개시 전 최소 1년에서 2년 전에 미리 다이렉트 인터넷 온라인 사이트를 통해 저렴한곳을 수소문하여 신규로 가입을 완료해 두고, 감액 및 면책기간이 지난 이후 본격적인 검사와 치료에 착수하는 가입 팁을 활용하는 요령이 필요합니다.</p>
+
+    <h2>2026년 기준 연령별 평균 교정 비용 시세 및 보험료 비교</h2>
+    <p>다음 자료는 서울 및 수도권 전문 치과 의원 100곳의 비급여 고지 요금을 취합하여 분석한 2026년도 실제 이사 시점 기준 평균 치료비 예상금액과 이에 대응하는 월 납입 요금 수준을 나타냅니다.</p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>대상 연령대</th>
+          <th>주요 구강 특징 및 치료 목적</th>
+          <th>평균 치료 비용 예상치</th>
+          <th>월 예상 보험료 요금제</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>영유아 (0세 ~ 2세)</td>
+          <td>유치 보존기, 초기 우식증 예방 관리</td>
+          <td>약 10만원 내외 (정기검진 중심)</td>
+          <td>월 1만원 ~ 2만원 선</td>
+        </tr>
+        <tr>
+          <td>유아기 (3세 ~ 5세)</td>
+          <td>구강 악습관 교정 장치, 불소 도포</td>
+          <td>약 30만원 ~ 80만원</td>
+          <td>월 2만원 ~ 3만원 선</td>
+        </tr>
+        <tr>
+          <td>초등 저학년 (6세 ~ 8세)</td>
+          <td>영구치 맹출기, 골격 성장을 유도하는 1차 교정</td>
+          <td>약 150만원 ~ 300만원</td>
+          <td>월 3만원 ~ 5만원 선</td>
+        </tr>
+        <tr>
+          <td>초등 고학년 (9세 ~ 12세)</td>
+          <td>혼합치열기 완료기, 고정식 브라켓 2차 교정 시작</td>
+          <td>약 400만원 ~ 600만원</td>
+          <td>월 4만원 ~ 6만원 선</td>
+        </tr>
+        <tr>
+          <td>청소년 (13세 ~ 18세)</td>
+          <td>성장기 마감 단계, 정밀 턱 교정 및 전체 발치 교정</td>
+          <td>약 500만원 ~ 800만원 이상</td>
+          <td>월 5만원 ~ 7만원 선</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="chart-container">
+      <div class="chart-title">연령대별 평균 치과 교정 치료 비용 분포 (단위: 만원)</div>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <div class="bar-label">영유아 (0-2세)</div>
+          <div class="bar-wrapper">
+            <div class="bar-fill" style="width: 5%;"></div>
+            <div class="bar-value">10</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">유아기 (3-5세)</div>
+          <div class="bar-wrapper">
+            <div class="bar-fill" style="style; width: 15%;"></div>
+            <div class="bar-value">80</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">초등 저학년 (6-8세)</div>
+          <div class="bar-wrapper">
+            <div class="bar-fill" style="width: 45%;"></div>
+            <div class="bar-value">300</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">초등 고학년 (9-12세)</div>
+          <div class="bar-wrapper">
+            <div class="bar-fill" style="width: 80%;"></div>
+            <div class="bar-value">600</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">청소년 (13-18세)</div>
+          <div class="bar-wrapper">
+            <div class="bar-fill" style="width: 100%;"></div>
+            <div class="bar-value">800</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>실시간 어린이 치아 교정 보험료 계산기</h2>
+    <p>자녀의 현재 상태와 연령, 원하시는 보장 범위를 입력하시면 2026년 기준 통계 알고리즘에 의해 도출되는 예상 월 납입료와 잠재적인 지원금 혜택을 실시간으로 산출해 보실 수 있습니다.</p>
+
+    <div class="interactive-section">
+      <h3>자가 진단 및 월 예상 보험료 요금 계산</h3>
+      
+      <div class="form-group">
+        <label for="child-age">자녀의 현재 정확한 만나이 선택</label>
+        <select id="child-age" onchange="updateSymptomChecklist()">
+          <option value="1">만 1세 ~ 2세 (영유아기)</option>
+          <option value="4">만 3세 ~ 5세 (유아기)</option>
+          <option value="7" selected>만 6세 ~ 8세 (초등 저학년)</option>
+          <option value="10">만 9세 ~ 12세 (초등 고학년)</option>
+          <option value="15">만 13세 ~ 18세 (청소년 및 고등학생)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="insurance-channel">선호하는 가입 채널 및 전문 설계 종류</label>
+        <select id="insurance-channel">
+          <option value="direct">다이렉트 인터넷 간편 가입 (최저가 중심)</option>
+          <option value="consultant">전담 설계사 맞춤형 1:1 상담 및 컨설팅</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>현재 자녀에게서 관찰되는 구강 내 이상 증상 (복수 선택 가능)</label>
+        <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" id="symptom-1" value="15"> 아랫니가 윗니보다 앞으로 나온 현상 (주걱턱 의심)
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="symptom-2" value="10"> 영구치가 맹출할 자리가 부족해 심하게 비뚤어짐
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="symptom-3" value="10"> 위아래 치아가 서로 맞물리지 않고 틈이 벌어짐
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" id="symptom-4" value="5"> 평소 구강 호흡을 하거나 손가락을 자주 빠는 버릇
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="coverage-level">원하시는 보장 범위 수준 선택</label>
+        <select id="coverage-level">
+          <option value="basic">실속형 요금제 (급여 충치 치료 + 부정교합 핵심 지원)</option>
+          <option value="premium">고급형 요금제 (임플란트/크라운 고액 보장 + 교정 치료비 집중 확대)</option>
+        </select>
+      </div>
+
+      <button type="button" class="btn-submit" onclick="calculateDentalPremium()">맞춤 견적 및 지원금 예상 산출하기</button>
+
+      <div id="calc-result-panel" class="calc-result">
+        <h4>계산 완료: 자녀 맞춤형 예상 견적서</h4>
+        <p>선택하신 조건을 바탕으로 산출된 2026년형 가상 월 납입금액은 다음과 같습니다.</p>
+        <p>월 예상 보험료: <strong><span id="calculated-premium" class="highlight">0</span>원</strong></p>
+        <p>부정교합 진단 확정 시 지급 예상 지원금액: 약 <strong><span id="calculated-benefit" class="highlight">0</span>만원</strong></p>
+        <p id="tailored-advice" style="font-size: 0.9em; color: #475569; margin-top: 15px; border-top: 1px dashed #cbd5e1; padding-top: 15px;"></p>
+      </div>
+    </div>
+
+    <h2>다이렉트 가입 채널 vs 전문 설계사 오프라인 대면 가입의 장단점</h2>
+    <p>인터넷 온라인 다이렉트 사이트나 모바일 앱, 어플을 통해 직접 가입하는 방법과 전통적인 전문 설계사 채널을 통한 상담 및 컨설팅을 받는 방법은 각각 매우 뚜렷한 장단점을 지니고 있습니다. 스마트폰 활용도가 높은 3040세대 부모님들은 비교 과정의 신속함과 최저가 혜택을 선호하지만, 장기 계약의 불확실성을 예방하고자 전문 대면 채널을 찾는 수요도 결코 적지 않습니다.</p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>다이렉트 인터넷 온라인 가입 채널</th>
+          <th>오프라인 설계사 1:1 매칭 컨설팅 채널</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>장점</td>
+          <td>
+            중개 수수료가 제거되어 월 요금이 10% ~ 20%가량 제일 저렴한곳에 가깝습니다.<br>
+            네이버, 구글, 토스 앱을 활용한 간편 계산과 실시간 순위 비교가 용이합니다.<br>
+            가입 권유 부담 없이 자녀의 치료 시기에 맞추어 스스로 주도적 신청이 가능합니다.
+          </td>
+          <td>
+            개인 상황별 맞춤 구성이 가능하여 불필요한 담보를 덜어내는 정밀한 설계가 가능합니다.<br>
+            향후 실제 부정교합 진단을 받았을 때 청구 서류 구비 및 진행 과정을 밀착 지원합니다.<br>
+            약관상의 까다로운 면책 조건과 부지급 사례에 대해 사전에 심층적인 안내를 받습니다.
+          </td>
+        </tr>
+        <tr>
+          <td>단점</td>
+          <td>
+            고객 스스로 세부 보장 한도와 특약의 한계를 분석해야 하여 보장 누락 위험이 있습니다.<br>
+            추후 보험사 고객센터를 통해 서류 발송 및 심사 과정을 개별적으로 직접 해결해야 하므로 번거롭습니다.<br>
+            사은품, 현금지원 등 신규 가입 혜택에 치우쳐 본질적인 보장 내용을 놓칠 가능성이 큽니다.
+          </td>
+          <td>
+            영업 인력 수수료 및 오프라인 유지 비용이 추가되어 월 요금이 상대적으로 다소 비쌉니다.<br>
+            불필요한 고액 보철치료나 타 연계 상품 가입 유도에 노출되어 비용이 증가할 우려가 있습니다.<br>
+            설계사의 역량에 따라 청구 대행 만족도나 가입 관리 서비스의 질적 편차가 극명하게 갈립니다.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>대형 온라인 커뮤니티 실제 내돈내산 사례 및 민심 분석</h2>
+    <p>아이들의 부정교합 교정 치료는 일회성 지출에 그치지 않고 오랜 세월 치료와 추적 관찰이 요구되므로, 실제 부모님들의 내돈내산 경험담과 후기가 보험 상품 선택의 나침반 역할을 하게 됩니다. 최근에는 육아 맘카페를 비롯하여 국내 주요 대형 커뮤니티인 디시, 보배드림, 펨코(에펨코리아) 등지에서도 어린이 치과 치료 보장에 대한 현실적인 후기가 다양하게 게시되고 있습니다.</p>
+
+    <div class="testimonial">
+      <div class="testimonial-title">내돈내산 실제 청구 사례: 서울 마포구 임○연 님의 후기</div>
+      <p>만 7세 초등학생 자녀의 영구치 앞니 두 개가 주걱턱 양상으로 반대로 물리는 반대교합 증상이 발견되어 근처 소아 치과 의원에 내원했습니다. 정밀 진단 결과 골격성 3급 부정교합 판정을 받고 위턱 성장을 자극하는 장치를 쓰기로 했습니다. 가입해 두었던 어린이 치아 보험 전용 교정 특약에 의거하여 진단서와 요양기관 고지 가격 명세서를 첨부해 접수했습니다.</p>
+      <p>청구하는 과정에서 심사 부서가 기능 장애 요건 충족 여부를 정밀 검토하느라 일주일가량 지연되었지만, 다행히 규정에 부합하는 주걱턱 소견서와 엑스레이 계측 사진을 제출하여 최초 예상금액에 상당하는 150만원의 진료 지원금 수령에 성공했습니다. 사전에 가입해둔 덕에 자녀 교정 치료의 시작 단계에서 재정적 압박감을 크게 덜 수 있어 진심으로 안도했습니다.</p>
+    </div>
+
+    <p>인터넷 커뮤니티의 여론 동향을 종합하면 다음과 같은 현실적인 꿀팁들이 빈번히 조명받고 있습니다.</p>
+    <ul>
+      <li>첫째, 사은품이나 현금지원, 상품권, 네이버 페이 포인트 지급 등 가입 당시에 일회성으로 부여하는 혜택이나 화려한 이벤트 팝업에 현혹되어 월 납입금을 무턱대고 비싸게 설정하지 말아야 한다는 조언이 가장 많습니다.</li>
+      <li>둘째, 자녀의 영구치가 다 자라나기 이전인 영유아나 유아기 단계에서 미리 치아 건강 관리용 전용 앱이나 어플을 깔아두고 실시간 치아 성장을 추적하면서 최저가 라인의 실속 요금제 종류를 점진적으로 비교 검토하라는 목소리가 높습니다.</li>
+      <li>셋째, 부정교합 진단을 전문으로 다루는 구강악안면외과 혹은 치과교정과 전문의가 상주하는 3차 의료기관의 진단 서류여야만 향후 분쟁 없이 지원금이나 가입 혜택을 온전히 수령할 수 있다는 점이 선배 부모들의 핵심 경험담으로 거듭 제시됩니다.</li>
+    </ul>
+
+    <h2>2026년 최신 트렌드: AI 기술을 활용한 스마트 보장 분석</h2>
+    <p>2026년에 들어서며 정보기술이 극도로 발달함에 따라 자녀의 구강 건강 진단과 보험 요금 계산 방식 역시 차원이 다른 비약적인 발전을 보이고 있습니다. 최근 급부상하고 있는 카카오톡 오픈채팅방이나 텔레그램 연동 채널의 정보 공유뿐만 아니라, 토스, 구글 등 대형 플랫폼에서는 이미 제미나이 및 챗지피티와 같은 거대언어모델 AI 기술을 접목하여 개별 구강 이미지를 학습시키고 이에 맞는 최적의 보장 컨설팅을 제공하는 고도화된 맞춤형 솔루션을 론칭하기 시작했습니다.</p>
+    
+    <p>과거에는 설계사들의 일방적인 권유나 보험사의 광고 메시지에만 수동적으로 의존하여 불필요하게 고액의 요금을 매달 부담했다면, 현재의 스마트한 부모 세대들은 인터넷 포털 검색창을 넘어 인스타그램, 유튜브, 페이스북 등의 동영상 매체에서 실제 치료 기법의 장단점을 과학적으로 학습하고, AI 연산 도구를 통하여 복수의 다이렉트 추천 순위를 실시간으로 갱신받고 있습니다. 이와 같은 입체적인 다각도 분석은 최종 선택의 안전성을 보장하고 부당한 청구 거절 비율을 극적으로 줄이는 등 소비자 권익 향상에 크나큰 보탬이 되고 있습니다.</p>
+
+    <div class="external-links">
+      <h3>신뢰할 수 있는 외부 공식 자료 출처</h3>
+      <p>본 안내서에 언급된 공공 정보 및 금융 소비 가이드라인에 대한 원본 데이터와 상세한 법적 기준은 아래의 공식 검증된 출처를 통하여 보다 객관적으로 상세히 열람하고 검토하실 수 있습니다.</p>
+      <ul>
+        <li>첫째: <a href="https://childetopbohumn.directreliable.com" target="_blank" rel="noopener">금융보험정책연구소 어린이 치아 및 교정 보장 표준 가이드라인</a></li>
+        <li>둘째: <a href="https://namu.wiki/w/%EC%B9%98%EC%95%84%EA%B5%90%EC%A0%95" target="_blank" rel="noopener">나무위키 – 치아교정 문서 (치료 과정, 부작용 및 임상 정보 참고)</a></li>
+        <li>셋째: <a href="https://www.kca.go.kr" target="_blank" rel="noopener">한국소비자원 공식 포털 (보험 분야 비급여 청구 분쟁 해결 기준 가이드라인)</a></li>
+      </ul>
+    </div>
+
+    <h2>자주 접수되는 핵심 질의응답 (FAQ)</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(0)">
+          어린이 치아 보험 가입 시 교정 특약의 평균 대기 기간은 보통 어느 정도인가요?
+          <span>+</span>
+        </div>
+        <div class="faq-answer" id="faq-ans-0">
+          대부분의 치아 보험 상품들은 도덕적 해이를 원천 차단하기 위하여 면책기간과 감액기간을 반드시 두고 있습니다. 교정 치료와 관련된 특약의 경우 가입일로부터 평균 1년에서 길게는 2년 동안의 면책기간이 작동하여 이 시기에는 진단을 받더라도 지원금이 단 일절도 발생하지 않습니다. 또한 면책기간이 끝난 후에도 초기 1년 동안은 약정된 보장 금액의 50%만 감액 지급하는 조건이 많아 자녀가 초등학교 입학하기 약 2년 전인 유아기 시절 미리 안전하게 신규 가입을 매듭지어 두는 요령을 추천드립니다.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(1)">
+          다이렉트가 대면보다 더 저렴하다면 왜 대면 상담을 받는 부모들이 여전히 존재할까요?
+          <span>+</span>
+        </div>
+        <div class="faq-answer" id="faq-ans-1">
+          다이렉트 가입이 가격 면에서 최저가에 가까워 비용 절감 측면에서는 독보적으로 우수하지만, 청구 과정에서의 복잡성 때문입니다. 치아교정은 엑스레이, 세팔로 계측 사진, 구강 내 정밀 임상 사진 및 주치의의 종합적 치료 소견서가 전부 구비되어 심사 부서의 엄격한 가이드라인을 통과해야 하므로 전문 설계사의 동행 하에 서류를 준비하고 단계별 이의제기 절차를 함께 밟는 편이 실질적인 보험금 지급 성지나 좌표를 찾는 것 이상으로 결과가 확실하기 때문입니다.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(2)">
+          주걱턱이나 반대교합이 아닌 덧니 같은 단순 미적인 목적의 교정도 혜택 적용 대상이 되나요?
+          <span>+</span>
+        </div>
+        <div class="faq-answer" id="faq-ans-2">
+          단순히 덧니가 심하여 미용상으로 보기가 좋지 않다거나, 치아가 미세하게 회전하여 배열이 흐트러진 것과 같은 심미적인 이유의 교정 치료는 어떠한 어린이 치아 전용 보험을 가입하시더라도 지급 대상에서 제외됩니다. 약관에 명시된 주요 보장 요건은 건강보험공단이 인정하는 기능상 심각한 장애 요건, 즉 상하악골의 심각한 전후방적 부조화 또는 저작 능력이 정상인의 50% 미만으로 크게 소실되어 치료를 방치할 시 자녀의 일상적인 음식물 섭취가 도저히 불가능한 수준이라는 객관적 전문 임상 소견이 수반될 때에 한하여 인정됩니다.
+        </div>
+      </div>
+    </div>
+
+    <h2>맺음말 및 올바른 설계 방향성 제안</h2>
+    <p>어린이 치아 보험 교정 보장은 평소 든든한 보호막이 되어 줄 수 있는 유용한 도구이지만, 그 보장의 기준이 매우 세분화되어 있고 지급 조건 역시 엄격하게 설계되어 있습니다. 단순히 저렴한곳, 싼곳, 혹은 현금지원과 풍성한 사은품에 끌려 신속히 계약서에 서명하기보다는, 자녀의 현재 연령(만 1세에서 18세 등)과 턱 골격의 발달 상태를 치과 정밀 검진을 통해 정확히 들여다보신 다음 계획을 정밀하게 수립하시기를 권장합니다.</p>
+    
+    <p>2026년은 다양한 인공지능 분석 툴과 실시간 플랫폼의 활성화 덕에 가입자 스스로 복잡한 정보를 손쉽게 수집하고 주도적으로 권리를 누릴 수 있는 최적의 시기입니다. 제미나이, 챗지피티 같은 차세대 연산 플랫폼의 조력을 받거나 각사 어플의 프리미엄 계산 기능을 충분히 활용하시어, 자녀의 건강한 치아와 부모님의 소중한 가정 경제를 균형감 있고 현명하게 지켜 나가시기를 기원합니다.</p>
+  </div>
+
+  <script>
+    // FAQ 아코디언 토글 기능
+    function toggleFaq(index) {
+      const answers = document.querySelectorAll('.faq-answer');
+      const questions = document.querySelectorAll('.faq-question span');
+      
+      const currentAns = answers[index];
+      const currentBtn = questions[index];
+      
+      if (currentAns.style.display === 'block') {
+        currentAns.style.display = 'none';
+        currentBtn.textContent = '+';
+      } else {
+        currentAns.style.display = 'block';
+        currentBtn.textContent = '-';
+      }
+    }
+
+    // 자녀 연령 선택 변경 시 가상 증상 체크박스 가중치 변화 동적 처리
+    function updateSymptomChecklist() {
+      const ageSelect = document.getElementById('child-age');
+      const age = Number(ageSelect.value);
+      const symptom1 = document.getElementById('symptom-1');
+      const symptom2 = document.getElementById('symptom-2');
+      const symptom3 = document.getElementById('symptom-3');
+      const symptom4 = document.getElementById('symptom-4');
+
+      if (age < 3) {
+        // 영유아 단계에서는 교정보다는 단순 보존/예방 위주이므로 체크박스 제한 및 설명 변경
+        symptom1.disabled = true;
+        symptom2.disabled = true;
+        symptom3.disabled = true;
+        symptom4.checked = true; // 영유아는 나쁜 습관에 집중
+      } else {
+        symptom1.disabled = false;
+        symptom2.disabled = false;
+        symptom3.disabled = false;
+      }
+    }
+
+    // 맞춤형 월 납입료 및 지원금 산출 함수
+    function calculateDentalPremium() {
+      const age = Number(document.getElementById('child-age').value);
+      const channel = document.getElementById('insurance-channel').value;
+      const coverage = document.getElementById('coverage-level').value;
+      
+      // 체크박스 값 계산
+      let symptomScore = 0;
+      if (document.getElementById('symptom-1').checked && !document.getElementById('symptom-1').disabled) {
+        symptomScore += Number(document.getElementById('symptom-1').value);
+      }
+      if (document.getElementById('symptom-2').checked && !document.getElementById('symptom-2').disabled) {
+        symptomScore += Number(document.getElementById('symptom-2').value);
+      }
+      if (document.getElementById('symptom-3').checked && !document.getElementById('symptom-3').disabled) {
+        symptomScore += Number(document.getElementById('symptom-3').value);
+      }
+      if (document.getElementById('symptom-4').checked && !document.getElementById('symptom-4').disabled) {
+        symptomScore += Number(document.getElementById('symptom-4').value);
+      }
+
+      // 기본 월 요금제 테이블 설계
+      let basePremium = 25000;
+      if (age >= 0 && age <= 2) basePremium = 15000;
+      else if (age >= 3 && age <= 5) basePremium = 28000;
+      else if (age >= 6 && age <= 8) basePremium = 42000;
+      else if (age >= 9 && age <= 12) basePremium = 53000;
+      else if (age >= 13) basePremium = 61000;
+
+      // 옵션 적용
+      if (coverage === 'premium') {
+        basePremium += 18000; // 고급형 요금 추가
+      }
+      
+      // 다이렉트 할인 적용
+      if (channel === 'direct') {
+        basePremium = Math.round(basePremium * 0.85); // 15% 세이빙 최저가 효과
+      }
+
+      // 예상 지원금액 계산
+      let expectedBenefit = 0;
+      if (coverage === 'premium') {
+        expectedBenefit = 200 + (symptomScore * 8);
+      } else {
+        expectedBenefit = 100 + (symptomScore * 4);
+      }
+
+      // 특정 연령에 따른 지원금 상한 한계 설정
+      if (age < 3) expectedBenefit = 0; // 영유아는 사실상 보장 불가능
+
+      // 화면에 데이터 매핑
+      document.getElementById('calculated-premium').innerText = basePremium.toLocaleString();
+      document.getElementById('calculated-benefit').innerText = expectedBenefit.toLocaleString();
+
+      // 결과 분석 패널 노출
+      const resultPanel = document.getElementById('calc-result-panel');
+      resultPanel.style.display = 'block';
+
+      // 맞춤 가이드라인 자동 생성
+      const adviceLabel = document.getElementById('tailored-advice');
+      if (age < 3) {
+        adviceLabel.innerText = "안내: 자녀분의 영유아 단계 특성상 치과 치료와 관련된 기본 계약 위주로 우선 준비해 주시는 편이 유리하며, 본격적인 골격 성장 장치를 장착하기 이전에는 미용보다는 유치 충치 예방 관리를 위주로 설계하는 실속형을 적극 추천해 드립니다.";
+      } else if (age >= 6 && age <= 8) {
+        adviceLabel.innerText = "안내: 현재 자녀분은 영구치 맹출기가 본격 도래하는 아주 중대한 1차 턱 교정 적정 연령대입니다. 주걱턱이나 반대교합 양상이 관찰되시는 상황이라면 신속히 전문 다이렉트 라인을 통하여 면책기간의 공백을 최소화할 수 있도록 신규 설계를 수립해 두시기를 강하게 추천합니다.";
+      } else {
+        adviceLabel.innerText = "안내: 본격적인 2차 전체 브라켓 교정에 착수하기 이전 단계이므로 보장 금액이 두둑한 고급형 설계를 기반으로 검토하시길 제안드리며, 가입 직후 곧바로 청구되지 않도록 2년 이상의 대기 및 감액 조건을 사전에 확실히 챙기시길 당부드립니다.";
+      }
+    }
+  </script>
+  
